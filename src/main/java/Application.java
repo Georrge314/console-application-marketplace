@@ -1,3 +1,4 @@
+import controller.InitialController;
 import util.JdbcUtil;
 
 import java.io.FileInputStream;
@@ -13,5 +14,8 @@ public class Application {
                 .getResource("jdbc.properties").getPath();
         properties.load(new FileInputStream(dbConfigPath));
         Connection connection = JdbcUtil.createDbConnection(properties);
+
+        InitialController initialController = new InitialController();
+        initialController.init();
     }
 }
