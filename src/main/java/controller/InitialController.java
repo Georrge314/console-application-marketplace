@@ -1,7 +1,9 @@
 package controller;
 
 import dialog.UserLoginDialog;
+import dialog.UserRegisterDialog;
 import dialog.dto.UserLoginDto;
+import dialog.dto.UserRegisterDto;
 import menu.Menu;
 import menu.Option;
 
@@ -13,12 +15,13 @@ public class InitialController {
     public void init() {
         Menu menu = new Menu("Welcome to Marketplace", new ArrayList<>(List.of(
                 new Option("Register", () -> {
-                   return "";
+                    UserRegisterDto userRegisterDto = new UserRegisterDialog().input();
+                    System.out.println(userRegisterDto);
+                    return "";
                 }),
                 new Option("Login", () -> {
                     UserLoginDto userLoginDto = new UserLoginDialog().input();
-                    System.out.println(userLoginDto.getUsername());
-                    System.out.println(userLoginDto.getPassword());
+                    System.out.println(userLoginDto);
                     return "";
                 }),
                 new Option("Skip Login/Register", () -> {
