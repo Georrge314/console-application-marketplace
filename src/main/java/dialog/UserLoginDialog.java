@@ -1,6 +1,6 @@
 package dialog;
 
-import controller.UserLoginDto;
+import dialog.dto.UserLoginDto;
 import util.StringValidator;
 
 import java.util.Scanner;
