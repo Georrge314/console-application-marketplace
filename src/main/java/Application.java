@@ -1,4 +1,8 @@
 import controller.InitialController;
+import dao.UserRepository;
+import dao.impl.UserRepositoryJDBC;
+import service.UserService;
+import service.impl.UserServiceImpl;
 import util.JdbcUtil;
 
 import java.io.FileInputStream;
@@ -15,7 +19,9 @@ public class Application {
         properties.load(new FileInputStream(dbConfigPath));
         Connection connection = JdbcUtil.createDbConnection(properties);
 
-        InitialController initialController = new InitialController();
+        UserRepository userRepository = new UserRepositoryJDBC(connection);
+        UserService userService = new UserServiceImpl(userRepository);
+        InitialController initialController = new InitialController(userService);
         initialController.init();
     }
 }
