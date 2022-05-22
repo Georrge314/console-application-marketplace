@@ -8,9 +8,10 @@ import exception.EntityNotFoundException;
 import exception.InvalidEntityException;
 import menu.Menu;
 import menu.Option;
+import model.User;
 import model.service.UserServiceModel;
 import service.UserService;
-import util.ObjectMapper;
+import system.SystemUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,8 @@ public class InitialController {
                     UserRegisterDto userRegisterDto = new UserRegisterDialog().input();
                     UserServiceModel model = MODEL_MAPPER.map(userRegisterDto, UserServiceModel.class);
                     try {
-                        userService.createUser(model);
+                        User createdUser = userService.createUser(model);
+                        SystemUser.loggIn(createdUser);
                         System.out.println("Register successfully");
                     } catch (InvalidEntityException e) {
                         System.out.println("Register failed");
@@ -41,7 +43,8 @@ public class InitialController {
                 new Option("Login", () -> {
                     UserLoginDto userLoginDto = new UserLoginDialog().input();
                     try {
-                        userService.getUserByUsernameAndPassword(userLoginDto.getUsername(), userLoginDto.getPassword());
+                        User existingUser = userService.getUserByUsernameAndPassword(userLoginDto.getUsername(), userLoginDto.getPassword());
+                        SystemUser.loggIn(existingUser);
                         System.out.println("Login successfully");
                     } catch (EntityNotFoundException e) {
                         System.out.println("Login failed");
@@ -50,6 +53,7 @@ public class InitialController {
                     return "";
                 }),
                 new Option("Skip Login/Register", () -> {
+                    SystemUser.loggOut();
                     return "";
                 })
         )));
