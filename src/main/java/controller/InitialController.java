@@ -34,6 +34,7 @@ public class InitialController {
                         User createdUser = userService.createUser(model);
                         SystemUser.loggIn(createdUser);
                         System.out.println("Register successfully");
+                        new MainController().init();
                     } catch (InvalidEntityException e) {
                         System.out.println("Register failed");
                         System.out.println(e.getMessage());
@@ -46,6 +47,7 @@ public class InitialController {
                         User existingUser = userService.getUserByUsernameAndPassword(userLoginDto.getUsername(), userLoginDto.getPassword());
                         SystemUser.loggIn(existingUser);
                         System.out.println("Login successfully");
+                        new MainController().init();
                     } catch (EntityNotFoundException e) {
                         System.out.println("Login failed");
                         System.out.println(e.getMessage());
@@ -54,6 +56,7 @@ public class InitialController {
                 }),
                 new Option("Skip Login/Register", () -> {
                     SystemUser.loggOut();
+                    new MainController().init();
                     return "";
                 })
         )));
