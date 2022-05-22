@@ -7,8 +7,11 @@ import model.User;
 
 import java.sql.Connection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserRepositoryJDBC implements UserRepository {
     private final Map<String, User> users = new HashMap<>();
@@ -37,5 +40,19 @@ public class UserRepositoryJDBC implements UserRepository {
             }
         }
         throw new EntityNotFoundException(String.format("User with USERNAME:'%s' and PASSWORD:'%s' does not exists", username, password));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return new ArrayList<>(users.values());
+    }
+
+    @Override
+    public User findByUsername(String username) throws EntityNotFoundException {
+        User user = users.get(username);
+        if (user != null) {
+            return user;
+        }
+        throw new EntityNotFoundException(String.format("User with USERNAME:'%s' does not exists", username));
     }
 }
