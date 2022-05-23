@@ -11,10 +11,10 @@ public class User {
     private String password;
     private String pictureUrl;
     private boolean isAdmin;
-    private boolean isActive;
+    private boolean isActive = true;
     private double balance;
     private final Timestamp created = new Timestamp(System.currentTimeMillis());
-    private final Timestamp modified = new Timestamp(System.currentTimeMillis());
+    private Timestamp modified = new Timestamp(System.currentTimeMillis());
 
     public long getId() {
         return id;
@@ -102,5 +102,30 @@ public class User {
 
     public Timestamp getModified() {
         return modified;
+    }
+
+    public void setModified(Timestamp modified) {
+        this.modified = modified;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("id=").append(id);
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", username='").append(username).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", pictureUrl='").append(pictureUrl).append('\'');
+        sb.append(", isAdmin=").append(isAdmin);
+        sb.append(", isActive=").append(isActive);
+        sb.append(", balance=").append(balance);
+        sb.append(", created=").append(created);
+        sb.append(", modified=").append(modified);
+        sb.append(", admin=").append(isAdmin());
+        sb.append(", active=").append(isActive());
+        sb.append('}');
+        return sb.toString();
     }
 }
