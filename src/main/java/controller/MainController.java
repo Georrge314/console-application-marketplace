@@ -11,6 +11,7 @@ public class MainController {
     public void init() {
         List<Option> options = new ArrayList<>(List.of(
                 new Option("Stores", () -> {
+                    new StoreController(ServiceContainer.getStoreService()).init();
                     return "";
                 }),
                 new Option("Categories", () -> {
