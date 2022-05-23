@@ -70,4 +70,10 @@ public class UserRegisterDto {
         sb.append('}');
         return sb.toString();
     }
+
+    public boolean isEmpty() {
+        return firstName == null && lastName == null &&
+                username == null && email == null &&
+                password == null && pictureUrl == null;
+    }
 }
