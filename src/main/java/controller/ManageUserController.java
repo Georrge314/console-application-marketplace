@@ -24,13 +24,14 @@ public class ManageUserController {
     }
 
     public void init() {
-        Menu menu = new Menu("Manage" + user.getUsername(), List.of(
+        Menu menu = new Menu("Manage " + user.getUsername(), List.of(
                 new Option("Edit User", () -> {
                     UserRegisterDto dto = new UserEditDialog().input();
                     if (!dto.isEmpty()) {
                         UserServiceModel model = MODEL_MAPPER.map(dto, UserServiceModel.class);
                         try {
                             user = userService.updateByUsername(user.getUsername(), model);
+                            System.out.printf("User with USERNAME:'%s' updated successfully", user.getUsername());
                         } catch (EntityNotFoundException e) {
                             System.out.println(e.getMessage());
                         }
