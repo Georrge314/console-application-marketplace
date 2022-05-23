@@ -30,8 +30,8 @@ public class MainController {
             //TODO add other options
             options.add(
                     new Option("Account", () -> {
-                new AccountController(ServiceContainer.getUserService()).init();
-                return "";
+                        new AccountController(ServiceContainer.getUserService()).init();
+                        return "";
             }));
 
             if (SystemUser.isAdmin()) {
