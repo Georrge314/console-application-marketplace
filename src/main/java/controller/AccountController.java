@@ -2,9 +2,11 @@ package controller;
 
 import menu.Menu;
 import menu.Option;
+import model.User;
 import service.UserService;
 import system.SystemUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountController {
@@ -15,9 +17,10 @@ public class AccountController {
     }
 
     public void init() {
-        Menu menu = new Menu("Account Menu", List.of(
+        Menu menu = new Menu("Account Menu", new ArrayList<>(List.of(
                 new Option("Show Account Information", () -> {
-                    return SystemUser.getUser().toString();
+                    User user = SystemUser.getUser();
+                    return user.toString();
                 }),
                 new Option("Edit Account", () -> {
                     return "";
@@ -25,7 +28,7 @@ public class AccountController {
                 new Option("Delete Account", () -> {
                     return "";
                 })
-        ));
+        )));
         menu.show();
     }
 }
