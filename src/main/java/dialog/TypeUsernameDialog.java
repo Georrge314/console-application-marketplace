@@ -10,7 +10,7 @@ public class TypeUsernameDialog {
     public String input() {
         String username = "";
         while (username.isBlank()) {
-            System.out.println("Enter username");
+            System.out.println("Enter username:");
             String answer = scanner.nextLine();
             if (answer.length() >= MIN_USER_LENGTH && answer.length() <= MAX_USER_LENGTH) {
                 username = answer;
