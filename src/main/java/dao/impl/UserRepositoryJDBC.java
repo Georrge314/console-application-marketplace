@@ -19,6 +19,7 @@ public class UserRepositoryJDBC implements UserRepository {
 
     public UserRepositoryJDBC(Connection connection) {
         this.connection = connection;
+        users.put("Georgi", new User("Georgi", "Petrov", "Georgi", "georgi@abv.bg", "Georgi1111@@"));
     }
 
     @Override
