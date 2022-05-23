@@ -7,11 +7,11 @@ import model.User;
 
 import java.sql.Connection;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class UserRepositoryJDBC implements UserRepository {
     private final Map<String, User> users = new HashMap<>();
@@ -54,5 +54,42 @@ public class UserRepositoryJDBC implements UserRepository {
             return user;
         }
         throw new EntityNotFoundException(String.format("User with USERNAME:'%s' does not exists", username));
+    }
+
+    @Override
+    public User updateByUsername(String username, User user) throws EntityNotFoundException {
+        User existingUser = findByUsername(username);
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
+        String userName = user.getUsername();
+        String email = user.getEmail();
+        String password = user.getPassword();
+        String pictureUrl = user.getPictureUrl();
+        if (firstName != null) {
+            existingUser.setFirstName(firstName);
+        }
+        if (lastName != null) {
+            existingUser.setLastName(lastName);
+        }
+        if (userName != null) {
+            existingUser.setUsername(userName);
+        }
+        if (email != null) {
+            existingUser.setEmail(email);
+        }
+        if (password != null) {
+            existingUser.setPassword(password);
+        }
+        if (pictureUrl != null) {
+            existingUser.setPictureUrl(pictureUrl);
+        }
+        existingUser.setModified(new Timestamp(System.currentTimeMillis()));
+        return existingUser;
+    }
+
+    @Override
+    public User deleteByUsername(String username) throws EntityNotFoundException {
+        findByUsername(username);
+        return users.remove(username);
     }
 }

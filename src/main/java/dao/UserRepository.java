@@ -9,7 +9,8 @@ import java.util.List;
 public interface UserRepository {
     User createUser(User user) throws InvalidEntityException;
     User findUserByUsernameAndPassword(String username, String password) throws EntityNotFoundException;
-
     List<User> findAll();
     User findByUsername(String username) throws EntityNotFoundException;
+    User updateByUsername(String username, User user) throws EntityNotFoundException;
+    User deleteByUsername(String username) throws EntityNotFoundException;
 }
