@@ -1,5 +1,7 @@
 import controller.InitialController;
+import dao.StoreRepository;
 import dao.UserRepository;
+import dao.impl.StoreRepositoryJDBC;
 import dao.impl.UserRepositoryJDBC;
 import service.ServiceContainer;
 import util.JdbcUtil;
@@ -20,6 +22,10 @@ public class Application {
 
         UserRepository userRepository = new UserRepositoryJDBC(connection);
         ServiceContainer.createUserService(userRepository);
+
+        StoreRepository storeRepository = new StoreRepositoryJDBC(connection);
+        ServiceContainer.createStoreService(storeRepository);
+
         InitialController initialController = new InitialController(ServiceContainer.getUserService());
         initialController.init();
     }
