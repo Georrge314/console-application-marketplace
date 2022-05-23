@@ -41,13 +41,12 @@ public class Menu {
             try {
                 result = options.get(choice - 1).getCommand().execute();
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
                 continue;
             }
-//            if (!result.isBlank() && !result.isEmpty()) {
-//                System.out.println(result);
-//            }
-
+            if (!result.isBlank()) {
+                System.out.println(result);
+            }
             if (choice == options.size() || result.equals("You are logged out.")) { // Exit command chosen
                 break;
             }
