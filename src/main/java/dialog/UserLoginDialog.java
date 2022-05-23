@@ -1,6 +1,7 @@
 package dialog;
 
 import dialog.dto.UserLoginDto;
+import util.ConsoleReader;
 import util.StringValidator;
 
 import java.util.Scanner;
@@ -14,14 +15,11 @@ public class UserLoginDialog {
             "Password must be between 8 and 15 symbols long, " +
             "at least one digit, one capital letter, " +
             "and one sign different than letter or digit.";
-
-    private final Scanner scanner = new Scanner(System.in);
-
     public UserLoginDto input() {
         UserLoginDto dto = new UserLoginDto();
         while (dto.getUsername() == null) {
             System.out.println("Enter username:");
-            String answer = scanner.nextLine();
+            String answer = ConsoleReader.readLine();
             if (answer.length() < MIN_USER_LENGTH || answer.length() > MAX_USER_LENGTH) {
                 System.out.println(INVALID_LENGTH);
             } else {
@@ -30,7 +28,7 @@ public class UserLoginDialog {
         }
         while (dto.getPassword() == null) {
             System.out.println("Enter password:");
-            String answer = scanner.nextLine();
+            String answer = ConsoleReader.readLine();
             if (!StringValidator.isValidPassword(answer)) {
                 System.out.println(INVALID_PASSWORD);
             } else {
