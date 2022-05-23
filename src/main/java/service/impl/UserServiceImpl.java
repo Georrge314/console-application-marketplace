@@ -38,4 +38,15 @@ public class UserServiceImpl implements UserService {
     public User getByUsername(String username) throws EntityNotFoundException {
         return userRepo.findByUsername(username);
     }
+
+    @Override
+    public User updateByUsername(String username, UserServiceModel model) throws EntityNotFoundException {
+        User user = MODEL_MAPPER.map(model, User.class);
+        return userRepo.updateByUsername(username, user);
+    }
+
+    @Override
+    public User deleteByUsername(String username) throws EntityNotFoundException {
+        return userRepo.deleteByUsername(username);
+    }
 }

@@ -1,7 +1,5 @@
 package service;
 
-
-import dialog.dto.UserRegisterDto;
 import exception.EntityNotFoundException;
 import exception.InvalidEntityException;
 import model.User;
@@ -14,4 +12,6 @@ public interface UserService {
     User getUserByUsernameAndPassword(String username, String password) throws EntityNotFoundException;
     List<User> getAll();
     User getByUsername(String username) throws EntityNotFoundException;
+    User updateByUsername(String username, UserServiceModel model) throws EntityNotFoundException;
+    User deleteByUsername(String username) throws EntityNotFoundException;
 }
