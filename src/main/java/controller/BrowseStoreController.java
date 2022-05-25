@@ -5,11 +5,12 @@ import dialog.dto.StoreCreateDto;
 import exception.EntityNotFoundException;
 import menu.Menu;
 import menu.Option;
+import model.Product;
 import model.Store;
 import model.service.StoreServiceModel;
+import service.ProductService;
 import service.StoreService;
 import system.SystemUser;
-import util.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,14 @@ import static util.ObjectMapper.*;
 public class BrowseStoreController {
     private Store store;
     private final StoreService storeService;
+    private final ProductService productService;
 
-    public BrowseStoreController(Store store, StoreService storeService) {
+    public BrowseStoreController(Store store,
+                                 StoreService storeService,
+                                 ProductService productService) {
         this.store = store;
         this.storeService = storeService;
+        this.productService = productService;
     }
 
     public void input() {
@@ -31,7 +36,8 @@ public class BrowseStoreController {
                     return store.toString();
                 }),
                 new Option("Show Store Products", () -> {
-                    //TODO implement product service
+                    List<Product> products = productService.getAllByStoreName(store.getName());
+                    products.forEach(System.out::println);
                     return "";
                 })
         ));
@@ -58,10 +64,10 @@ public class BrowseStoreController {
                 return "";
             }));
             options.add(new Option("Delete Store", () -> {
-                //TODO should exit from menu after delete
                 try {
                     Store deleted = storeService.deleteByName(store.getName());
-                    return String.format("Store with NAME:'%s' deleted successfully%n", deleted.getName());
+                    System.out.printf("Store with NAME:'%s' deleted successfully%n", deleted.getName());
+                    return "exit";
                 } catch (EntityNotFoundException e) {
                     System.out.println(e.getMessage());
                 }
